@@ -1,0 +1,77 @@
+spring:
+  profiles:
+    active:
+     - dev
+---
+server:
+  port: 8001
+
+spring:
+  profiles: dev
+  application:
+    name: springcloud-config-dept-client                        #项目名，的时候注册中心显示的就是这个名字
+  datasource:
+    url: jdbc:mysql://localhost:3306/clouddb01?serverTimezone=UTC  # 连接地址
+    driver-class-name: com.mysql.cj.jdbc.Driver              # 驱动类
+    username: root                                           # 数据库用户名
+    password: 565649                                         # 密码
+    dbcp2:
+      min-idle: 5                                           # 数据库连接池的最小维持连接数
+      initial-size: 5                                       # 初始化连接数
+      max-total: 5                                          # 最大连接数
+      max-wait-millis: 200                                  # 等待连接获取的最大超时时间
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
+  type-aliases-package: com.jyl.entities                    # 所有Entity别名类所在包
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml                       # mapper映射文件
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+  instance:
+    prefer-ip-address: true                     # 注册服务的时候使用服务的ip地址，就是点击注册中心页服务的超链接显示的是ip地址
+    instance-id: springcloud-provider-dept-8001 #注册中心的服务的超链接名字自定义
+
+info:    #配置注册中心超链接的信息，这里还需要在8001工程加依赖，在父工程加构建
+  app.name: atguigu-microservicecloud
+  company.name: www.atguigu.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+  
+---
+server:
+  port: 8001
+
+spring:
+  profiles: test
+  application:
+    name: springcloud-config-dept-client                        #项目名，的时候注册中心显示的就是这个名字
+  datasource:
+    url: jdbc:mysql://localhost:3306/clouddb02?serverTimezone=UTC  # 连接地址
+    driver-class-name: com.mysql.cj.jdbc.Driver              # 驱动类
+    username: root                                           # 数据库用户名
+    password: 565649                                         # 密码
+    dbcp2:
+      min-idle: 5                                           # 数据库连接池的最小维持连接数
+      initial-size: 5                                       # 初始化连接数
+      max-total: 5                                          # 最大连接数
+      max-wait-millis: 200                                  # 等待连接获取的最大超时时间
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
+  type-aliases-package: com.jyl.entities                    # 所有Entity别名类所在包
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml                       # mapper映射文件
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+  instance:
+    prefer-ip-address: true                     # 注册服务的时候使用服务的ip地址，就是点击注册中心页服务的超链接显示的是ip地址
+    instance-id: springcloud-provider-dept-8001 #注册中心的服务的超链接名字自定义
+
+info:    #配置注册中心超链接的信息，这里还需要在8001工程加依赖，在父工程加构建
+  app.name: atguigu-microservicecloud
+  company.name: www.atguigu.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
